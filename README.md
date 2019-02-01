@@ -5,7 +5,7 @@ You can open this project in IntelliJ IDEA by opening the folder or the build.gr
 
 You can find this template at GitHub: <https://github.com/korlibs/korge-hello-world>
 
-
+For Windows, change all the `./gradlew` for `gradlew.bat`.
 
 ## Compiling for the JVM (Desktop)
 
@@ -75,7 +75,9 @@ using the cross-compiling gradle wrappers:
 You can change `Debug` for `Release` in all the tasks to generate Release executables.
 
 You can use the `strip` tool from your toolchain (or in the case of windows found in the ``~/.konan` toolchain)
-to further reduce Debug and Release executables size by removing debug information.
+to further reduce Debug and Release executables size by removing debug information (in some cases this will shrink the EXE size by 50%).
+
+In windows this exe is at: `%USERPROFILE%\.konan\dependencies\msys2-mingw-w64-x86_64-gcc-7.3.0-clang-llvm-lld-6.0.1\bin\strip.exe`.
 
 
 
