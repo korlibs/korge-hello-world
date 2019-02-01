@@ -40,7 +40,7 @@ For example using: `npm -g install http-server` and then executing `hs build/web
 You can also use `./gradlew -t jsWeb` to continuously building the JS sources and running `hs build/web` in another terminal.
 Here you can find a `testJs.sh` script doing exactly this for convenience.
 
-
+You can run your tests using Node.JS by calling `jsTest` or in a headless chrome with `jsTestChrome`.
 
 ## Compiling for Native Desktop (Windows, Linux and macOS)
 
@@ -79,7 +79,12 @@ to further reduce Debug and Release executables size by removing debug informati
 
 In windows this exe is at: `%USERPROFILE%\.konan\dependencies\msys2-mingw-w64-x86_64-gcc-7.3.0-clang-llvm-lld-6.0.1\bin\strip.exe`.
 
+### Linux notes
 
+Since linux doesn't provide standard multimedia libraries out of the box,
+you will need to have installed the following packages: `freeglut3-dev` and `libopenal-dev`.
+
+In ubuntu you can use `apt-get`: `sudo apt-get -y install freeglut3-dev libopenal-dev`.
 
 ## Compiling for Android
 
