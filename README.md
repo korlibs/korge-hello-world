@@ -30,7 +30,7 @@ Using gradle tasks on the terminal:
 ./gradlew jsWeb                     # Outputs to /build/web
 ./gradlew jsWebMin                  # Outputs to /build/web-min (applying Dead Code Elimination)
 ./gradlew jsWebMinWebpack           # Outputs to /build/web-min-webpack (minimizing and grouping into a single bundle.js file)
-./gradlew jsWebRun                  # Outputs to /build/web, creates a small http server and opens a browser
+./gradlew runJs                     # Outputs to /build/web, creates a small http server and opens a browser
 ```
 
 You can use any HTTP server to serve the files in your browser.
