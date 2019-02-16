@@ -1,4 +1,4 @@
 language: java
 install:
-  - apt-get update
-  - apt-get -y install freeglut3-dev libopenal-dev
+  - sudo apt-get update
+  - sudo apt-get -y install freeglut3-dev libopenal-dev
