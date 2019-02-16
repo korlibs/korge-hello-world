@@ -1,5 +1,6 @@
 language: java
 install:
+  - true
   #- sudo apt-get update
   #- sudo apt-get -y install freeglut3-dev libopenal-dev
 before_script: []
