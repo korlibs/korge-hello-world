@@ -1,4 +1,7 @@
 language: java
 install:
-  - sudo apt-get update
-  - sudo apt-get -y install freeglut3-dev libopenal-dev
+  #- sudo apt-get update
+  #- sudo apt-get -y install freeglut3-dev libopenal-dev
+before_script: []
+script:
+  - ./gradlew -i jvmTest
