@@ -4,6 +4,7 @@ import com.soywiz.korge.tests.*
 import com.soywiz.korge.tween.*
 import com.soywiz.korge.view.*
 import com.soywiz.korim.color.*
+import com.soywiz.korma.geom.*
 import kotlin.test.*
 
 class MyTest : ViewsForTesting() {
@@ -14,14 +15,11 @@ class MyTest : ViewsForTesting() {
         rect.onClick {
             log += "clicked"
         }
-        val start = time
         assertEquals(1, views.stage.children.size)
         rect.simulateClick()
         assertEquals(true, rect.isVisibleToUser())
-        rect.tween(rect::x[-102], time = 10.seconds)
-        println(rect.globalBounds)
-        val end = time
-        println(end - start)
+        tween(rect::x[-102], time = 10.seconds)
+        assertEquals(Rectangle(x=-102, y=0, width=100, height=100), rect.globalBounds)
         assertEquals(false, rect.isVisibleToUser())
         assertEquals(listOf("clicked"), log)
     }
