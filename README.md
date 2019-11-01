@@ -7,6 +7,8 @@ You can find this template at GitHub: <https://github.com/korlibs/korge-hello-wo
 
 For Windows, change all the `./gradlew` for `gradlew.bat`.
 
+You should use Gradle 5.5 or greater and Java 8 or greater.
+
 ## Compiling for the JVM (Desktop)
 
 Inside IntelliJ you can go to the `src/commonMain/kotlin/main.kt` file and press the green ▶️ icon
