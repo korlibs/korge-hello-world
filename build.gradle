@@ -1,5 +1,3 @@
-import com.soywiz.korge.gradle.*
-
 buildscript {
 	repositories {
 		mavenLocal()
@@ -8,11 +6,11 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath("com.soywiz.korlibs.korge.plugins:korge-gradle-plugin:1.4.0")
+		classpath("com.soywiz.korlibs.korge.plugins:korge-gradle-plugin:1.4.0c")
 	}
 }
 
-apply(plugin = "korge")
+apply plugin: "korge"
 
 korge {
 	id = "com.sample.demo"
