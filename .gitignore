@@ -4,3 +4,6 @@
 *.iml
 *.hprof
 *.log
+korge.keystore
+local.properties
+src/main/*

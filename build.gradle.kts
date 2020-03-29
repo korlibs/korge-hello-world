@@ -8,13 +8,14 @@ buildscript {
 		maven { url = uri("https://dl.bintray.com/korlibs/korlibs") }
 		maven { url = uri("https://plugins.gradle.org/m2/") }
 		mavenCentral()
+		google()
 	}
 	dependencies {
-		classpath("com.soywiz.korlibs.korge.plugins:korge-gradle-plugin:$korgePluginVersion")
+		classpath("com.soywiz.korlibs.korge.plugins:korge-gradle-plugin-android:$korgePluginVersion")
 	}
 }
 
-apply<KorgeGradlePlugin>()
+apply<KorgeWithAndroidGradlePlugin>()
 
 korge {
 	id = "com.sample.demo"
