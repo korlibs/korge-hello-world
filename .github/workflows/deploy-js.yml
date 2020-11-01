@@ -1,0 +1,42 @@
+# Deploy JS game to GitHub Pages
+
+on:
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.1.0
+        with:
+          submodules: 'true'
+      - uses: actions/setup-java@v1
+        with: {java-version: 11}
+      - name: Buid JS bundle
+        run: |
+          ./gradlew jsBrowserProductionWebpack
+      - name: Copy bundle to temp directory
+        run: |
+          mv distributions /tmp/docs
+          ls -la /tmp/docs
+      - run: rm -rf ./*
+      - uses: actions/checkout@v2.1.0
+        with:
+          ref: github-pages
+      - name: update docs
+        run: |
+          rm -rf docs
+          mv /tmp/docs docs
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs
+          git commit -m "Add changes"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: github-pages
+
