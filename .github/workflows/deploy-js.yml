@@ -20,6 +20,7 @@ jobs:
         run: |
           mv build/distributions /tmp/docs
           ls -la /tmp/docs
+      - run: git fetch origin github-pages:github-pages --depth=1
       - run: (git checkout github-pages) || (git checkout -B github-pages)
       - name: update docs
         run: |
