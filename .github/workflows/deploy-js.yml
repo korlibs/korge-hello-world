@@ -28,7 +28,7 @@ jobs:
       - name: remove all from git
         run: |
           mv .git /tmp/.git
-          rm -rf $(pwd) && mkdir $(pwd)
+          rm -rf $(pwd) && mkdir $(pwd) && cd $(pwd)
           mv /tmp/.git .git
           git add .
       - name: update docs dir
