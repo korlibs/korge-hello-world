@@ -23,6 +23,7 @@ jobs:
       - run: git reset --hard
       - name: checkout github-pages branch, or create new if not exists
         run: |
+          git fetch origin github-pages:github-pages --depth=1 || echo "skip if branch github-pages not exists"
           git switch --orphan github-pages
       - name: remove old docs
         run: |
