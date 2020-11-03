@@ -26,7 +26,7 @@ jobs:
           git switch --orphan github-pages
       - name: remove old docs
         run: |
-          (rm -rf docs) || (echo "skip")
+          rm -rf docs
       - name: update docs dir
         run: |
           mv /tmp/docs docs
