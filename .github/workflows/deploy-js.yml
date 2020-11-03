@@ -41,7 +41,3 @@ jobs:
       - name: Push changes
         run: |
           git push -u origin github-pages
-#        uses: ad-m/github-push-action@v0.6.0
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          branch: github-pages
