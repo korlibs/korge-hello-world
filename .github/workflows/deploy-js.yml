@@ -32,7 +32,6 @@ jobs:
           mv /tmp/.git .git
       - name: update docs
         run: |
-          rm -rf docs
           mv /tmp/docs docs
       - name: Commit files
         run: |
