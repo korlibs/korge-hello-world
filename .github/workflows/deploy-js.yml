@@ -39,4 +39,4 @@ jobs:
           git commit -m "update github-pages"
       - name: Push changes
         run: |
-          git push -u origin github-pages
+          git push -u origin github-pages || echo "maybe nothing changes in JS bundle"
