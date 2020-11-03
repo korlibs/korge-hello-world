@@ -24,10 +24,9 @@ jobs:
       - name: checkout github-pages branch, or create new if not exists
         run: |
           git switch --orphan github-pages
-      - name: remove redundant files
+      - name: remove old docs
         run: |
-          git rm --cached -r .
-          git clean -id
+          (rm -rf docs) || (echo "skip")
       - name: update docs dir
         run: |
           mv /tmp/docs docs
