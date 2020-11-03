@@ -20,7 +20,7 @@ jobs:
         run: |
           mv build/distributions /tmp/docs
           ls -la /tmp/docs
-      - run: git checkout -B github-pages
+      - run: (git checkout github-pages) || (git checkout -B github-pages)
       - name: update docs
         run: |
           rm -rf docs
