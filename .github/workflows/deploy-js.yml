@@ -30,9 +30,10 @@ jobs:
           mv .git /tmp/.git
           rm -rf *
           mv /tmp/.git .git
-      - name: update docs
+      - name: update docs dir
         run: |
           mv /tmp/docs docs
+          git add .
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
