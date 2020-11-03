@@ -22,7 +22,10 @@ jobs:
           ls -la /tmp/docs
       - run: git reset --hard
       - run: git fetch origin github-pages:github-pages --depth=1
-      - run: (git checkout github-pages) || (git checkout -B github-pages)
+      - name: create or checkout github-pages branch
+        run: |
+          (git fetch origin github-pages:github-pages --depth=1 && git checkout github-pages) \
+          || (git checkout -B github-pages)
       - name: update docs
         run: |
           rm -rf docs
