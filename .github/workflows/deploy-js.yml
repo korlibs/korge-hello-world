@@ -20,23 +20,23 @@ jobs:
         run: |
           mv build/distributions /tmp/docs
           ls -la /tmp/docs
-      - run: rm -rf ./*
-      - uses: actions/checkout@v2.1.0
-        with:
-          ref: github-pages
-      - name: update docs
+      - run: git reset --hard
+      - name: checkout github-pages branch, or create new if not exists
+        run: |
+          (git fetch origin github-pages:github-pages --depth=1 && git checkout github-pages) \
+          || (git switch --orphan github-pages)
+      - name: remove old docs
         run: |
           rm -rf docs
+      - name: update docs dir
+        run: |
           mv /tmp/docs docs
+          git add docs
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add docs
-          git commit -m "Add changes"
+          git commit -m "update github-pages" || echo "maybe nothing changes in JS bundle"
       - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: github-pages
-
+        run: |
+          git push -u origin github-pages || echo "maybe nothing changes in JS bundle"
