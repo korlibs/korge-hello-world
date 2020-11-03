@@ -24,7 +24,7 @@ jobs:
       - name: checkout github-pages branch, or create new if not exists
         run: |
           (git fetch origin github-pages:github-pages --depth=1 && git checkout github-pages) \
-          || (git switch --orphan github-pages) #orphan means create new branch without history
+          || (git switch --orphan github-pages)
       - name: remove old docs
         run: |
           rm -rf docs
