@@ -149,7 +149,7 @@ and [ios-deploy](https://github.com/ios-control/ios-deploy) for deploying to rea
 
 ## JS-game deployment to GitHub Pages
  - Go to [settings page](../../settings) and enable GitHub Pages
- - Choose branch `github-pages` and select folder `docs/`      
+ - Choose branch `github-pages` and select folder `/ (root)`      
  - After that you can use link:  
 [link to JS-game](../../deployments/activity_log?environment=github-pages), click "View Deployment"  
  - When you push to main or master branch, - deployment process will start again with GitHub Actions.  
