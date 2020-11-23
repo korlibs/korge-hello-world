@@ -21,6 +21,13 @@ apply<KorgeGradlePlugin>()
 
 korge {
 	id = "com.sample.demo"
+
+// To enable all targets at once
+
+	//targetAll()
+
+// To selectively enable targets
+	
 	targetJvm()
 	//targetJs()
 	//targetDesktop()
