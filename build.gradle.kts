@@ -21,4 +21,9 @@ apply<KorgeGradlePlugin>()
 
 korge {
 	id = "com.sample.demo"
+	targetJvm()
+	//targetJs()
+	//targetDesktop()
+	//targetIos()
+	//targetAndroidIndirect() // targetAndroidDirect()
 }
