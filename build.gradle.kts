@@ -9,7 +9,7 @@ korge {
 
 // To enable all targets at once
 
-	targetAll()
+	//targetAll()
 
 // To enable targets based on properties/environment variables
 	//targetDefault()
@@ -18,10 +18,17 @@ korge {
 	
 	targetJvm()
 	targetJs()
-	targetDesktop()
-	targetIos()
-	targetAndroidIndirect() // targetAndroidDirect()
+	//targetDesktop()
+	//targetIos()
+	//targetAndroidIndirect() // targetAndroidDirect()
 
 	serializationJson()
 	//targetAndroidDirect()
 }
+
+
+dependencies {
+    add("commonMainApi", project(":deps"))
+    //add("commonMainApi", project(":korge-dragonbones"))
+}
+
