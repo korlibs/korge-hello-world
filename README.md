@@ -128,8 +128,8 @@ won't include Swift's runtime.
 
 ```bash
 ./gradlew iosBuildSimulatorDebug          # Creates an APP file
-./gradlew iosInstallSimulatorDebug        # Installs an APP file in the simulator
-./gradlew iosRunSimulatorDebug            # Runs the APP in the simulator
+./gradlew installIosSimulatorDebug        # Installs an APP file in the simulator
+./gradlew runIosSimulatorDebug            # Runs the APP in the simulator
 
 ```
 
