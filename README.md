@@ -141,14 +141,6 @@ with XCode and do additional tasks there.
 It uses [XCodeGen](https://github.com/yonaskolb/XcodeGen) for the project generation
 and [ios-deploy](https://github.com/ios-control/ios-deploy) for deploying to real devices.
 
-### Apache Cordova (JS)
-
-```bash
-./gradlew compileCordovaIos               # Just compiles cordova from iOS
-./gradlew runCordovaIos                   # Runs the application (dce'd, minimized and webpacked) in an iOS device
-./gradlew runCordovaIosNoMinimized        # Runs the application in iOS without minimizing (so you can use Safari on macOS to debug the application easier)
-```
-
 ## JS-game deployment to GitHub Pages
  - Go to [settings page](../../settings) and enable GitHub Pages
  - Choose branch `github-pages` and select folder `/ (root)`      
