@@ -9,7 +9,7 @@ For Windows, change all the `./gradlew` for `gradlew.bat`.
 
 You should use Gradle 5.5 or greater and Java 8 or greater.
 
-If certain tasks are not available, make sure that they are enabled/not commented out in `build.gradle.kts`.
+Tasks related to specific targets, might not be available if the target is not enabled, make sure that the required targets are enabled/not commented out in the `korge {}` section inside `build.gradle.kts`.
 
 ## Compiling for the JVM (Desktop)
 
