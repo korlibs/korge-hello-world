@@ -9,6 +9,8 @@ For Windows, change all the `./gradlew` for `gradlew.bat`.
 
 You should use Gradle 5.5 or greater and Java 8 or greater.
 
+Tasks related to specific targets, might not be available if the target is not enabled, make sure that the required targets are enabled/not commented out in the `korge {}` section inside `build.gradle.kts`.
+
 ## Compiling for the JVM (Desktop)
 
 Inside IntelliJ you can go to the `src/commonMain/kotlin/main.kt` file and press the green ▶️ icon
@@ -128,8 +130,8 @@ won't include Swift's runtime.
 
 ```bash
 ./gradlew iosBuildSimulatorDebug          # Creates an APP file
-./gradlew iosInstallSimulatorDebug        # Installs an APP file in the simulator
-./gradlew iosRunSimulatorDebug            # Runs the APP in the simulator
+./gradlew installIosSimulatorDebug        # Installs an APP file in the simulator
+./gradlew runIosSimulatorDebug            # Runs the APP in the simulator
 
 ```
 
@@ -138,14 +140,6 @@ with XCode and do additional tasks there.
 
 It uses [XCodeGen](https://github.com/yonaskolb/XcodeGen) for the project generation
 and [ios-deploy](https://github.com/ios-control/ios-deploy) for deploying to real devices.
-
-### Apache Cordova (JS)
-
-```bash
-./gradlew compileCordovaIos               # Just compiles cordova from iOS
-./gradlew runCordovaIos                   # Runs the application (dce'd, minimized and webpacked) in an iOS device
-./gradlew runCordovaIosNoMinimized        # Runs the application in iOS without minimizing (so you can use Safari on macOS to debug the application easier)
-```
 
 ## JS-game deployment to GitHub Pages
  - Go to [settings page](../../settings) and enable GitHub Pages
