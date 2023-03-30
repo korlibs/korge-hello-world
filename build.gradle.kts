@@ -1,4 +1,4 @@
-import com.soywiz.korge.gradle.*
+import korlibs.korge.gradle.*
 
 plugins {
 	alias(libs.plugins.korge)
@@ -18,9 +18,11 @@ korge {
 	
 	targetJvm()
 	targetJs()
-	//targetDesktop()
-	//targetIos()
-	//targetAndroidIndirect() // targetAndroidDirect()
+	targetDesktop()
+    targetDesktopCross()
+	targetIos()
+	targetAndroid() // targetAndroidDirect()
+    sourceMaps = false
 
 	serializationJson()
 	//targetAndroidDirect()
@@ -28,7 +30,7 @@ korge {
 
 
 dependencies {
-    add("commonMainApi", project(":deps"))
+    //add("commonMainApi", project(":deps"))
     //add("commonMainApi", project(":korge-dragonbones"))
 }
 

@@ -9,6 +9,6 @@
 *.log
 korge.keystore
 local.properties
-src/main/*
+src/androidMain/*
 .DS_Store
 
