@@ -20,7 +20,7 @@ korge {
 	targetJs()
 	//targetDesktop()
 	//targetIos()
-	//targetAndroidIndirect() // targetAndroidDirect()
+	targetAndroid() // targetAndroidDirect()
 
 	serializationJson()
 	//targetAndroidDirect()
