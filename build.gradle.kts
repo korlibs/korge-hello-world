@@ -1,4 +1,4 @@
-import com.soywiz.korge.gradle.*
+import korlibs.korge.gradle.*
 
 plugins {
 	alias(libs.plugins.korge)
@@ -18,12 +18,11 @@ korge {
 	
 	targetJvm()
 	targetJs()
-	//targetDesktop()
-	//targetIos()
-	//targetAndroidIndirect() // targetAndroidDirect()
+	targetDesktop()
+	targetIos()
+	targetAndroid()
 
 	serializationJson()
-	//targetAndroidDirect()
 }
 
 
