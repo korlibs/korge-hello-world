@@ -18,12 +18,11 @@ korge {
 	
 	targetJvm()
 	targetJs()
-	//targetDesktop()
-	//targetIos()
-	targetAndroid() // targetAndroidDirect()
+	targetDesktop()
+	targetIos()
+	targetAndroid()
 
 	serializationJson()
-	//targetAndroidDirect()
 }
 
 
