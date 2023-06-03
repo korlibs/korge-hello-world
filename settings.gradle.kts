@@ -1,8 +1,13 @@
-pluginManagement { repositories {  mavenLocal(); mavenCentral(); google(); gradlePluginPortal()  }  }
-
-plugins {
-    //id("com.soywiz.kproject.settings") version "0.0.1-SNAPSHOT"
-    id("com.soywiz.kproject.settings") version "0.2.6"
+pluginManagement {
+    repositories {
+        mavenLocal(); mavenCentral(); google(); gradlePluginPortal()
+        maven { url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev") }
+    }
 }
 
-kproject("./deps")
+//plugins {
+//    //id("com.soywiz.kproject.settings") version "0.0.1-SNAPSHOT"
+//    id("com.soywiz.kproject.settings") version "0.3.1"
+//}
+//
+//kproject("./deps")

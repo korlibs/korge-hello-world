@@ -15,19 +15,20 @@ korge {
 	//targetDefault()
 
 // To selectively enable targets
-	
+
 	targetJvm()
-	targetJs()
-	targetDesktop()
-	targetIos()
-	targetAndroid()
+	//targetJs()
+    targetWasm()
+	//targetDesktop()
+	//targetIos()
+	//targetAndroid()
 
 	serializationJson()
 }
 
 
 dependencies {
-    add("commonMainApi", project(":deps"))
+    //add("commonMainApi", project(":deps"))
     //add("commonMainApi", project(":korge-dragonbones"))
 }
 

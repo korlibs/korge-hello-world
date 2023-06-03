@@ -8,6 +8,8 @@ import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
 
 suspend fun main() = Korge(windowSize = Size(512, 512), backgroundColor = Colors["#2b2b2b"]) {
 	val sceneContainer = sceneContainer()
@@ -27,9 +29,15 @@ class MyScene : Scene() {
 			position(256, 256)
 		}
 
-		while (true) {
+        text(Json.encodeToString(Demo(a = 42, b = "hello")))
+
+        while (true) {
 			image.tween(image::rotation[minDegrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
 			image.tween(image::rotation[maxDegrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
 		}
+
 	}
 }
+
+@Serializable
+data class Demo(val a: Int, val b: String)
