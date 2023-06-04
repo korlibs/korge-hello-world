@@ -5,6 +5,7 @@ import korlibs.korge.tween.*
 import korlibs.korge.view.*
 import korlibs.image.color.*
 import korlibs.image.format.*
+import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
@@ -31,11 +32,14 @@ class MyScene : Scene() {
 
         text(Json.encodeToString(Demo(a = 42, b = "hello")))
 
+        launchImmediately {
+            JittoViewExample.runInContainer(this)
+        }
+
         while (true) {
 			image.tween(image::rotation[minDegrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
 			image.tween(image::rotation[maxDegrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
 		}
-
 	}
 }
 
