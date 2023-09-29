@@ -1,53 +1,25 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Deploy JS game to GitHub Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: [ "main", "master" ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+env:
+  JAVA_DISTRIBUTION: zulu
+  JAVA_VERSION: 11
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
+      - { uses: actions/checkout@v4 }
+      - { name: Set up JDK, uses: actions/setup-java@v3, with: { distribution: "${{ env.JAVA_DISTRIBUTION }}", java-version: "${{ env.JAVA_VERSION }}" } }
+      - { name: Prepare Gradle, uses: gradle/gradle-build-action@ef76a971e2fa3f867b617efd72f2fbd72cf6f8bc } # v2.8.0
+      - { name: Buid JS bundle, run: ./gradlew jsBrowserProductionWebpack }
+      - name: Deploy 🚀 to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
-          java-version: 11
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Buid JS bundle
-        run: |
-          ./gradlew jsBrowserProductionWebpack
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          # Upload entire repository
-          path: './build/distributions'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: github-pages # The branch the action should deploy to.
+          FOLDER: build/distributions # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
