@@ -6,6 +6,10 @@ name: Testing
 on:
   push
 
+env:
+  JAVA_DISTRIBUTION: zulu
+  JAVA_VERSION: 11
+
 jobs:
   build:
 
