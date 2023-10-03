@@ -2,9 +2,8 @@ pluginManagement {
     repositories { mavenLocal(); mavenCentral(); google(); gradlePluginPortal() }
 }
 
-// @TODO: Why can't we just use libs here? We can't even use a TOML parser since it is gradle internal, and we cannot load a library in a reasonably way here.
-plugins {
-    val libsTomlFile = File("gradle/libs.versions.toml").readText()
+buildscript {
+    val libsTomlFile = File(this.sourceFile?.parentFile, "gradle/libs.versions.toml").readText()
     var plugins = false
     var version = ""
     for (line in libsTomlFile.lines().map { it.trim() }) {
@@ -14,5 +13,11 @@ plugins {
     }
     if (version.isEmpty()) error("Can't find korge version in $libsTomlFile")
 
-    id("com.soywiz.korge.settings") version version
+    repositories { mavenLocal(); mavenCentral(); google(); gradlePluginPortal() }
+
+    dependencies {
+        classpath("com.soywiz.korge.settings:com.soywiz.korge.settings.gradle.plugin:$version")
+    }
 }
+
+apply(plugin = "com.soywiz.korge.settings")
