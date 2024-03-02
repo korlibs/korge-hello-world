@@ -1,25 +1,35 @@
 # Deploy JS game to GitHub Pages
+name: "🚀 Deploy JS"
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main" ]
+  workflow_dispatch:
 
 env:
   JAVA_DISTRIBUTION: zulu
-  JAVA_VERSION: 17
+  JAVA_VERSION: 21
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - { uses: actions/checkout@v4 }
       - { name: Set up JDK, uses: actions/setup-java@v3, with: { distribution: "${{ env.JAVA_DISTRIBUTION }}", java-version: "${{ env.JAVA_VERSION }}" } }
-      - { name: Prepare Gradle, uses: gradle/gradle-build-action@ef76a971e2fa3f867b617efd72f2fbd72cf6f8bc } # v2.8.0
+      - { name: Prepare Gradle, uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 } # v3.1.0
       - { name: Buid JS bundle, run: ./gradlew jsBrowserProductionWebpack }
-      - name: Deploy 🚀 to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: github-pages # The branch the action should deploy to.
-          FOLDER: build/dist/js/productionExecutable # The folder the action should deploy.
-          CLEAN: true # Automatically remove deleted files from the deploy branch
+      - { name: Upload artifact, uses: actions/upload-pages-artifact@v3, with: { path: 'build/dist/js/productionExecutable' } }
+      - { name: Deploy 🚀 to GitHub Pages, id: deployment, uses: actions/deploy-pages@v4}

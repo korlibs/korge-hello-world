@@ -1,14 +1,18 @@
 # This workflow will build a Java project with Gradle
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-name: Testing
+name: "🧪 Testing"
 
 on:
   push
 
 env:
   JAVA_DISTRIBUTION: zulu
-  JAVA_VERSION: 17
+  JAVA_VERSION: 21
+
+concurrency:
+  group: "testing"
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -18,5 +22,5 @@ jobs:
     steps:
       - { uses: actions/checkout@v4 }
       - { name: Set up JDK, uses: actions/setup-java@v3, with: { distribution: "${{ env.JAVA_DISTRIBUTION }}", java-version: "${{ env.JAVA_VERSION }}" } }
-      - { name: Prepare Gradle, uses: gradle/gradle-build-action@ef76a971e2fa3f867b617efd72f2fbd72cf6f8bc } # v2.8.0
+      - { name: Prepare Gradle, uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 } # v3.1.0
       - { name: Build with Gradle, run: ./gradlew jvmTest }
