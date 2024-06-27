@@ -40,9 +40,20 @@ download_file()
 export JAVA="$HOME/.korge/jdk-21/bin/java"
 
 if [ ! -f "$JAVA" ]; then
-  download_file "https://github.com/korlibs/universal-jre/releases/download/0.0.1/macos-universal-jdk-21+35-jre.tar.xz" "$HOME/.korge/jdk-21.tar.xz" "d7b2ab87de30584ee60b788dfbd8ea3fadf3b0ee06aeef37ac99e07de6d6281c"
+  mkdir -p "$HOME/.korge"
   mkdir "$HOME/.korge/jdk-21" 2> /dev/null
-  tar --strip-components 3 -xf "$HOME/.korge/jdk-21.tar.xz" -C "$HOME/.korge/jdk-21"
+  if [[ "${OSTYPE}" == 'dawrin'* ]]; then
+    download_file "https://github.com/korlibs/universal-jre/releases/download/0.0.1/macos-universal-jdk-21+35-jre.tar.xz" "$HOME/.korge/jdk-21.tar.xz" "d7b2ab87de30584ee60b788dfbd8ea3fadf3b0ee06aeef37ac99e07de6d6281c"
+    tar --strip-components 3 -xf "$HOME/.korge/jdk-21.tar.xz" -C "$HOME/.korge/jdk-21"
+  else
+    export ARCH=$(uname -m)
+    if [ "${ARCH}" == "aarch64" ] || [ "${ARCH}" == "arm64"* ]; then
+      download_file "https://github.com/korlibs/universal-jre/releases/download/0.0.1/microsoft-jre-21.0.3-linux-aarch64.tar.xz" "$HOME/.korge/jdk-21.tar.xz" "debbe8bcaedf5b62aacb74fada85bb150d3379b458160c6e72d397004b38290d"
+    else
+      download_file "https://github.com/korlibs/universal-jre/releases/download/0.0.1/microsoft-jre-21.0.3-linux-x64.tar.xz" "$HOME/.korge/jdk-21.tar.xz" "aeceeea4a1bfb976f793083b43bc44f940191c0ad3d385cc60c83c100288943b"
+    fi
+    tar --strip-components 1 -xf "$HOME/.korge/jdk-21.tar.xz" -C "$HOME/.korge/jdk-21"
+  fi
 fi
 
 if [ ! -f "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.jar" ]; then
@@ -55,6 +66,3 @@ if [ ! -f "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.ja
 fi
 
 "$JAVA" -jar "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.jar" $*
-#java -client -XX:-TieredCompilation -XX:+OptimizeStringConcat -XX:+UseSuperWord -jar "$HOME/.korge/compiler/korge-kotlin-compiler.jar" $*
-#java "$HOME/.korge/compiler/korge-kotlin-compiler.jar" $*
-
