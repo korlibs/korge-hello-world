@@ -1,0 +1,60 @@
+#!/bin/bash
+
+export INSTALLER_VERSION="0.0.1"
+export INSTALLER_URL=https://github.com/korlibs/compiler.korge.org/releases/download/v$INSTALLER_VERSION/korge-kotlin-compiler-all.tar.xz
+export INSTALLER_SHA256=0de1ab981f602aa35ec239094811707c65dc5cea39d55f3510527f6d48791c79
+
+download_file()
+{
+  FILE_URL=$1
+  FILE_NAME=$2
+  EXPECTED_SHA256=$3
+  shift; shift; shift;
+
+  # Download the file if it doesn't exist
+  if [ ! -f "$FILE_NAME" ]; then
+    echo "Downloading... $FILE_URL"
+    curl -s -L "$FILE_URL" -o "$FILE_NAME.tmp"
+    if [ $? -ne 0 ]; then
+      echo "Failed to download the file."
+      exit 1
+    fi
+
+    # Calculate the SHA-1 checksum of the downloaded file
+    ACTUAL_SHA256=$(shasum -a 256 "$FILE_NAME.tmp" | awk '{ print $1 }')
+
+    # Compare the actual SHA-1 checksum with the expected one
+    if [ "${ACTUAL_SHA256}" != "${EXPECTED_SHA256}" ]; then
+      echo "SHA-1 checksum does not match for $FILE_URL in $FILE_NAME.tmp"
+      echo "Expected: $EXPECTED_SHA256"
+      echo "Actual:   $ACTUAL_SHA256"
+      exit 1
+    fi
+
+    mv "$FILE_NAME.tmp" "$FILE_NAME"
+
+    # echo "File verification succeeded."
+  fi
+}
+
+export JAVA="$HOME/.korge/jdk-21/bin/java"
+
+if [ ! -f "$JAVA" ]; then
+  download_file "https://github.com/korlibs/universal-jre/releases/download/0.0.1/macos-universal-jdk-21+35-jre.tar.xz" "$HOME/.korge/jdk-21.tar.xz" "d7b2ab87de30584ee60b788dfbd8ea3fadf3b0ee06aeef37ac99e07de6d6281c"
+  mkdir "$HOME/.korge/jdk-21" 2> /dev/null
+  tar --strip-components 3 -xf "$HOME/.korge/jdk-21.tar.xz" -C "$HOME/.korge/jdk-21"
+fi
+
+if [ ! -f "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.jar" ]; then
+  mkdir -p "$HOME/.korge/compiler" 2> /dev/null
+
+  download_file "$INSTALLER_URL" "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.tar.xz" "$INSTALLER_SHA256"
+
+  tar -xf "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.tar.xz" -C "$HOME/.korge/compiler"
+  cp "$HOME/.korge/compiler"/korge-kotlin-compiler-all.jar "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.jar"
+fi
+
+"$JAVA" -jar "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.jar" $*
+#java -client -XX:-TieredCompilation -XX:+OptimizeStringConcat -XX:+UseSuperWord -jar "$HOME/.korge/compiler/korge-kotlin-compiler.jar" $*
+#java "$HOME/.korge/compiler/korge-kotlin-compiler.jar" $*
+

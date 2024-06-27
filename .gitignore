@@ -1,6 +1,7 @@
 /.gradle
 /.idea
 /.kotlin
+/.korge
 /build
 /modules
 /bundles
