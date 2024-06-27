@@ -42,7 +42,7 @@ export JAVA="$HOME/.korge/jdk-21/bin/java"
 if [ ! -f "$JAVA" ]; then
   mkdir -p "$HOME/.korge"
   mkdir "$HOME/.korge/jdk-21" 2> /dev/null
-  if [[ "${OSTYPE}" == 'dawrin'* ]]; then
+  if [[ "${OSTYPE}" == 'darwin'* ]]; then
     download_file "https://github.com/korlibs/universal-jre/releases/download/0.0.1/macos-universal-jdk-21+35-jre.tar.xz" "$HOME/.korge/jdk-21.tar.xz" "d7b2ab87de30584ee60b788dfbd8ea3fadf3b0ee06aeef37ac99e07de6d6281c"
     tar --strip-components 3 -xf "$HOME/.korge/jdk-21.tar.xz" -C "$HOME/.korge/jdk-21"
   else
