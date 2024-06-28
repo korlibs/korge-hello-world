@@ -18,6 +18,7 @@ IF NOT EXIST "%INSTALLER_LOCAL_FILE%" (
     COPY /Y "%INSTALLER_PATH%\korge-kotlin-compiler-all.jar" %INSTALLER_LOCAL_FILE% > NUL 2> NUL
     DEL "%INSTALLER_PATH%\korge-kotlin-compiler-all.jar" > NUL 2> NUL
     DEL "%INSTALLER_LOCAL_FILE%.tar.xz" > NUL 2> NUL
+    DEL "%INSTALLER_LOCAL_FILE%.tar.xz.sha256" > NUL 2> NUL
 )
 
 IF NOT EXIST "%JAVA%" (
@@ -28,6 +29,7 @@ IF NOT EXIST "%JAVA%" (
     )
     CALL :EXTRACT_TAR "%KORGEDIR%\jre-21.tar.xz" "%KORGEDIR%\jre-21" 1 "%JAVA%"
     DEL "%KORGEDIR%\jre-21.tar.xz" > NUL 2> NUL
+    DEL "%KORGEDIR%\jre-21.tar.xz.sha256" > NUL 2> NUL
 )
 
 "%JAVA%" -jar "%INSTALLER_LOCAL_FILE%" %*
