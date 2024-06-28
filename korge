@@ -43,8 +43,8 @@ if [ ! -f "$JAVA" ]; then
   mkdir -p "$HOME/.korge"
   mkdir "$HOME/.korge/jdk-21" 2> /dev/null
   if [[ "${OSTYPE}" == 'darwin'* ]]; then
-    download_file "https://github.com/korlibs/universal-jre/releases/download/0.0.1/macos-universal-jdk-21+35-jre.tar.xz" "$HOME/.korge/jdk-21.tar.xz" "d7b2ab87de30584ee60b788dfbd8ea3fadf3b0ee06aeef37ac99e07de6d6281c"
-    tar --strip-components 3 -xf "$HOME/.korge/jdk-21.tar.xz" -C "$HOME/.korge/jdk-21"
+    download_file "https://github.com/korlibs/universal-jre/releases/download/0.0.1/microsoft-jre-21.0.3-mac-universal.tar.xz" "$HOME/.korge/jdk-21.tar.xz" "430909fef93915338979e49363474f55b04e3e4de03db225d5d2577467d603bc"
+    tar --strip-components 1 -xf "$HOME/.korge/jdk-21.tar.xz" -C "$HOME/.korge/jdk-21"
   else
     export ARCH=$(uname -m)
     if [ "${ARCH}" == "aarch64" ] || [ "${ARCH}" == "arm64"* ]; then
@@ -54,6 +54,7 @@ if [ ! -f "$JAVA" ]; then
     fi
     tar --strip-components 1 -xf "$HOME/.korge/jdk-21.tar.xz" -C "$HOME/.korge/jdk-21"
   fi
+  rm "$HOME/.korge/jdk-21.tar.xz"
 fi
 
 if [ ! -f "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.jar" ]; then
@@ -61,8 +62,10 @@ if [ ! -f "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.ja
 
   download_file "$INSTALLER_URL" "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.tar.xz" "$INSTALLER_SHA256"
 
-  tar -xf "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.tar.xz" -C "$HOME/.korge/compiler"
+  INSTALLER_TAR_XZ_PATH=$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.tar.xz
+  tar -xf "$INSTALLER_TAR_XZ_PATH" -C "$HOME/.korge/compiler"
   cp "$HOME/.korge/compiler"/korge-kotlin-compiler-all.jar "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.jar"
+  rm "$INSTALLER_TAR_XZ_PATH"
 fi
 
 "$JAVA" -jar "$HOME/.korge/compiler/korge-kotlin-compiler-all.$INSTALLER_VERSION.jar" $*
