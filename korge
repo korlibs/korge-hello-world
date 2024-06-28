@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export INSTALLER_VERSION=0.0.5
+export INSTALLER_VERSION=0.0.6
 export INSTALLER_URL=https://github.com/korlibs/compiler.korge.org/releases/download/v$INSTALLER_VERSION/korge-kotlin-compiler-all.tar.xz
-export INSTALLER_SHA256=7433949856326135b2b77f2c410198398286a2ced82fd5deeaed6b06fd5b8aa0
+export INSTALLER_SHA256=f4290aa0452e2a621b475568e4c4b03e75fad16176677dfa7bf0b8a1eb7d79cb
 
 download_file()
 {
