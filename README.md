@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Korge Hello World and Template
 
 This is a Hello World and Template for the KorGe game engine. Using gradle with kotlin-dsl.
@@ -76,6 +76,12 @@ This example can help new users understand how to:
 
 ## 📸 Preview
 
+![game start](https://github.com/user-attachments/assets/a1c5bf96-db74-4b32-a1a3-a8b8bab91774)
+
+
+![game play](https://github.com/user-attachments/assets/2f22fa68-2d05-40f2-bf6c-1b8ae43e868e)
+
+
 
 
 ---
@@ -91,4 +97,4 @@ This project is licensed under the MIT License.
 - Built using [KorGE](https://korge.org/)
 - Inspired by classic endless runner mechanics
 ```
->>>>>>> d9275b4 (Added the game)
+
