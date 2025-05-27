@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import korlibs.time.*
 import korlibs.korge.*
 import korlibs.korge.scene.*
@@ -32,4 +33,24 @@ class MyScene : Scene() {
 			image.tween(image::rotation[maxDegrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
 		}
 	}
+=======
+import korlibs.image.color.*
+import korlibs.korge.*
+import korlibs.math.geom.*
+import logic.*
+
+/**
+ * Entry point for the game.
+ * Initializes the KorGE engine with a specific window size, background color, and title.
+ * Then creates and starts the main game logic.
+ */
+suspend fun main() = Korge(
+    windowSize = Size(640, 360),          // Set window size to 640x360 pixels
+    bgcolor = Colors["#cffae5"],          // Set background color to a soft green/blue
+    title = "Bear on the road"            // Title displayed in the window bar
+) {
+    // Create a new instance of the game logic and start the game
+    val game = GameLogic(this)
+    game.start()
+>>>>>>> d9275b4 (Added the game)
 }
