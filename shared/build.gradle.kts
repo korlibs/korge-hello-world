@@ -10,7 +10,6 @@ kotlin {
         namespace = "org.korge.application.shared"
         compileSdk = libs.versions.compileSdk.get().toInt()
         minSdk = libs.versions.minSdk.get().toInt()
-
         androidResources.enable = true
         withHostTest {}
         withDeviceTest {}
@@ -33,6 +32,9 @@ kotlin {
         }
         commonTest.dependencies {
 //            implementation(libs.)
+        }
+        androidMain {
+            resources.srcDirs("src/commonMain/resources")
         }
     }
 }
