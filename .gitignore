@@ -15,4 +15,4 @@ src/main/*
 .DS_Store
 /null.frame
 /null.socket
-/game/build
+/**/build

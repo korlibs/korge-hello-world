@@ -6,20 +6,24 @@ korge = "7.0.0-SNAPSHOT"
 kotlin = "2.3.21"
 
 # Android target related
-androidGradlePlugin = "9.2.1"
+android-gradle-plugin = "9.2.1"
 compileSdk = "36"
 minSdk = "20"
 
 # Versions of additions
-kotlinxSerialization = "1.11.0"
+kotlinx-serialization = "1.11.0"
 kaml = "0.61.0"
 fleks = "2.14"
 
 
 [plugins]
 korge = { id = "org.korge.engine", version.ref = "korge" }
+
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "androidGradlePlugin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android-gradle-plugin" }
+android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 
 # Additional plugins
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -29,6 +33,6 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 korge = { module = "org.korge.engine:korge", version.ref = "korge" }
 
 # Additional libs
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kaml = { module = "com.charleskorn.kaml:kaml", version.ref = "kaml" }
 fleks = { module = "io.github.quillraven.fleks:Fleks", version.ref = "fleks"}

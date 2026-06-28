@@ -8,4 +8,6 @@ pluginManagement {
     }
 }
 
-include("game")
+include("shared")
+include(":jvmApp")
+include(":androidApp")
