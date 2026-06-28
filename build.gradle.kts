@@ -1,4 +1,6 @@
 plugins {
+    // We need to define here all koltin multiplatform target related plugins
+    // But we must not applya them on root level
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.android.kotlin.multiplatform.library) apply false
@@ -39,11 +41,5 @@ korge {
 	targetAndroid()
 
 	serializationJson()
-}
-
-
-dependencies {
-    add("commonMainApi", project(":deps"))
-    //add("commonMainApi", project(":korge-dragonbones"))
 }
 */

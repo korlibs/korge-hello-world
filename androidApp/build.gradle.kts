@@ -8,11 +8,11 @@ group = rootProject.group
 version = rootProject.version
 
 android {
-    namespace = "org.korge.application"
+    namespace = rootProject.group.toString()
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "org.korge.application"
+        applicationId = rootProject.group.toString()
         // Korge is large; minSdk >= 21 enables native multidex (method count exceeds 64K).
         minSdk = maxOf(21, libs.versions.minSdk.get().toInt())
         targetSdk = libs.versions.compileSdk.get().toInt()

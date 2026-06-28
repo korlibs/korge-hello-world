@@ -18,5 +18,5 @@ dependencies {
 }
 
 application {
-    mainClass.set("org.korge.application.JvmMain")  //  "${group}.JvmMain")  //
+    mainClass.set("${rootProject.group}.JvmMain")
 }

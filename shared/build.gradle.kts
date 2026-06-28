@@ -7,10 +7,11 @@ kotlin {
     jvm {}
 
     android {
-        namespace = "org.korge.application.shared"
+        namespace = "${rootProject.group}.shared"
         compileSdk = libs.versions.compileSdk.get().toInt()
         minSdk = libs.versions.minSdk.get().toInt()
         androidResources.enable = true
+        androidResources.failOnMissingConfigEntry = true
         withHostTest {}
         withDeviceTest {}
     }
