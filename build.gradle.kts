@@ -1,9 +1,14 @@
-import korlibs.korge.gradle.*
-
-plugins {
-	alias(libs.plugins.korge)
+allprojects {
+    repositories {
+        mavenLocal()
+        maven { url = uri("https://central.sonatype.com/repository/maven-snapshots") }
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+    }
 }
 
+/*
 korge {
 	id = "com.sample.demo"
 
@@ -31,4 +36,4 @@ dependencies {
     add("commonMainApi", project(":deps"))
     //add("commonMainApi", project(":korge-dragonbones"))
 }
-
+*/
