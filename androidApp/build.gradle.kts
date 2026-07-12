@@ -18,11 +18,11 @@ android {
         targetSdk = libs.versions.compileSdk.get().toInt()
         versionCode = 1
         versionName = version.toString()
-        multiDexEnabled = true
     }
 }
 
 dependencies {
     implementation(projects.shared)
     implementation(libs.korge)
+    implementation(libs.material)
 }

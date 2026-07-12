@@ -5,7 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.android.kotlin.multiplatform.library) apply false
     alias(libs.plugins.android.application) apply false
-//    alias(libs.plugins.korge)
+    alias(libs.plugins.android.lint) apply false
+//    alias(libs.plugins.korge) apply false
 }
 
 allprojects {
@@ -27,27 +28,3 @@ allprojects {
 
 group = "org.korge.application"
 version = 1.0
-
-/*
-korge {
-	id = "com.sample.demo"
-
-// To enable all targets at once
-
-	//targetAll()
-
-// To enable targets based on properties/environment variables
-	//targetDefault()
-
-// To selectively enable targets
-	
-	targetJvm()
-	targetJs()
-    targetWasm()
-	targetDesktop()
-	targetIos()
-	targetAndroid()
-
-	serializationJson()
-}
-*/

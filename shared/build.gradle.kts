@@ -1,6 +1,15 @@
+import com.android.build.api.variant.AndroidComponentsExtension
+
 plugins {
     kotlin("multiplatform")
     alias(libs.plugins.android.kotlin.multiplatform.library)
+}
+
+project.extensions.configure<AndroidComponentsExtension<*, *, *>>("androidComponents") {
+    onVariants { variant ->
+        // Configure resources folder to be packaged as assets for Android target. This is required for Korge to work properly on Android.
+        variant.sources.assets?.addStaticSourceDirectory("resources")
+    }
 }
 
 kotlin {
@@ -34,8 +43,34 @@ kotlin {
         commonTest.dependencies {
 //            implementation(libs.)
         }
-        androidMain {
-            resources.srcDirs("src/commonMain/resources")
+
+        // Configure local resources folder for all targets except Android, since Korge handles resources on Android differently
+        jvmMain {
+            resources.srcDirs("resources")
         }
     }
 }
+
+/*
+korge {
+	id = "com.sample.demo"
+
+// To enable all targets at once
+
+	//targetAll()
+
+// To enable targets based on properties/environment variables
+	//targetDefault()
+
+// To selectively enable targets
+
+	targetJvm()
+	targetJs()
+    targetWasm()
+	targetDesktop()
+	targetIos()
+	targetAndroid()
+
+	serializationJson()
+}
+*/
