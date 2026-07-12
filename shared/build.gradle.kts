@@ -1,8 +1,10 @@
 import com.android.build.api.variant.AndroidComponentsExtension
+import korlibs.korge.gradle.korgefleks.korgeFleks
 
 plugins {
     kotlin("multiplatform")
     alias(libs.plugins.android.kotlin.multiplatform.library)
+    alias(libs.plugins.korge)
 }
 
 project.extensions.configure<AndroidComponentsExtension<*, *, *>>("androidComponents") {
@@ -51,26 +53,16 @@ kotlin {
     }
 }
 
-/*
-korge {
-	id = "com.sample.demo"
+// Example how to configure asset preprocessing for Korge-Fleks asset handling
+korgeFleks {
+    asepriteExe = "C:/Tools/Aseprite/Aseprite.exe"
 
-// To enable all targets at once
+    commonAssets("../art/") {
+        // Make texture atlas size configurable
+        atlasWidth = 512
+        atlasHeight = 512
+        simplifyJson = false  // Keep pretty JSON data for debugging
 
-	//targetAll()
-
-// To enable targets based on properties/environment variables
-	//targetDefault()
-
-// To selectively enable targets
-
-	targetJvm()
-	targetJs()
-    targetWasm()
-	targetDesktop()
-	targetIos()
-	targetAndroid()
-
-	serializationJson()
+        addFile("korge.png")
+    }
 }
-*/

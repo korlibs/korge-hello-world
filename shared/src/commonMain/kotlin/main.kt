@@ -20,7 +20,7 @@ class MyScene : Scene() {
 		val minDegrees = (-16).degrees
 		val maxDegrees = (+16).degrees
 
-		val image = image(resourcesVfs["korge.png"].readBitmap()) {
+		val image = image(resourcesVfs["common/korge.png"].readBitmap()) {
 			rotation = maxDegrees
 			anchor(.5, .5)
 			scale(0.8)
