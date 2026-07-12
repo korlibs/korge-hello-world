@@ -1,13 +1,22 @@
 pluginManagement {
     repositories {
         mavenLocal()
-        maven { url = uri("https://central.sonatype.com/repository/maven-snapshots") }
+        maven {
+            name = "Central Portal Snapshots"
+            url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+            content {
+                // Only consume org.korge.korlibs snapshots
+                includeGroup("org.korge.korlibs")
+            }
+        }
         mavenCentral()
         google()
         gradlePluginPortal()
     }
 }
 
-include("shared")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")  // Enable "projects. ..." in dependencies block
+
+include(":shared")
 include(":jvmApp")
 include(":androidApp")

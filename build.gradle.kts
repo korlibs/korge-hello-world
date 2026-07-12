@@ -5,12 +5,20 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.android.kotlin.multiplatform.library) apply false
     alias(libs.plugins.android.application) apply false
+//    alias(libs.plugins.korge)
 }
 
 allprojects {
     repositories {
         mavenLocal()
-        maven { url = uri("https://central.sonatype.com/repository/maven-snapshots") }
+        maven {
+            name = "Central Portal Snapshots"
+            url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+            content {
+                // Only consume org.korge.korlibs snapshots
+                includeGroup("org.korge.korlibs")
+            }
+        }
         mavenCentral()
         google()
         gradlePluginPortal()
