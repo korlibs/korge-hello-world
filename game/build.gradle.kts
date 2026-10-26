@@ -29,7 +29,9 @@ kotlin {
 //            implementation(libs.kaml)
 //            implementation(libs.kotlinx.serialization.json)
         }
-        commonTest
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
 //        jvmMain
     }
 }
