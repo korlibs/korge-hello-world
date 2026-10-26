@@ -36,6 +36,31 @@ kotlin {
     }
 }
 
+// KorGE's OpenGL backend reflects deep into AWT internals, which requires
+// opening java.desktop packages on modern JDKs (mirrors JvmAddOpens from the
+// KorGE Gradle plugin sources).
+tasks.withType<JavaExec> {
+    val os = org.gradle.internal.os.OperatingSystem.current()
+    jvmArgs(
+        "--add-opens=java.desktop/sun.java2d.opengl=ALL-UNNAMED",
+        "--add-opens=java.desktop/java.awt=ALL-UNNAMED",
+        "--add-opens=java.desktop/sun.awt=ALL-UNNAMED",
+    )
+    if (os.isMacOsX) {
+        jvmArgs(
+            "--add-opens=java.desktop/sun.lwawt=ALL-UNNAMED",
+            "--add-opens=java.desktop/sun.lwawt.macosx=ALL-UNNAMED",
+            "--add-opens=java.desktop/com.apple.eawt=ALL-UNNAMED",
+            "--add-opens=java.desktop/com.apple.eawt.event=ALL-UNNAMED",
+        )
+    }
+    if (os.isLinux) {
+        jvmArgs("--add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED")
+    }
+    // Silence JDK 25+ restricted native access warnings (JNA, etc.)
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}
+
 tasks.register<JavaExec>("runJvm") {
     group = "application"
     description = "Runs the JVM application"
