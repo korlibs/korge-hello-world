@@ -100,6 +100,9 @@ val patchGeneratedIosProject = tasks.register("patchGeneratedIosProject") {
 }
 tasks.matching { it.name.startsWith("iosBuild") }.configureEach {
     dependsOn(patchGeneratedIosProject)
+    // So a regenerated project (UIKit + runpath) rebuilds the .app
+    inputs.file(layout.buildDirectory.file("platforms/ios/app.xcodeproj/project.pbxproj"))
+        .withPropertyName("generatedPbxproj")
 }
 patchGeneratedIosProject { dependsOn("prepareKotlinNativeIosProject") }
 
