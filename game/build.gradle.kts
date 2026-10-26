@@ -69,20 +69,33 @@ val patchGeneratedIosProject = tasks.register("patchGeneratedIosProject") {
         val yml = File(dir, "project.yml")
         if (!yml.exists()) return@doLast
         val text = yml.readText()
-        if (!text.contains("UIKit")) {
-            val patched = Regex("(?m)^(\\s*)- framework: (\\.\\./)").replace(text) { m ->
+        var patched = text
+        if (!patched.contains("UIKit")) {
+            patched = Regex("(?m)^(\\s*)- framework: (\\.\\./)").replace(patched) { m ->
                 "${m.groupValues[1]}- sdk: UIKit.framework\n${m.groupValues[1]}- framework: ${m.groupValues[2]}"
             }
+        }
+        // Embedded GameMain.framework lives in the app bundle; without a
+        // runpath dyld can't resolve @rpath/GameMain.framework at launch.
+        if (!patched.contains("LD_RUNPATH_SEARCH_PATHS")) {
+            patched = patched.replace(
+                "ENABLE_BITCODE: NO",
+                "ENABLE_BITCODE: NO\n  LD_RUNPATH_SEARCH_PATHS: \$(inherited) @executable_path/Frameworks",
+            )
+        }
+        if (patched != text) {
             yml.writeText(patched)
         }
         val xcodegen = listOf(
             File(System.getProperty("user.home"), ".korge/XcodeGen-2.42.0/.build/release/xcodegen"),
             File("/usr/local/bin/xcodegen"),
         ).firstOrNull { it.exists() } ?: error("Can't find xcodegen (looked in ~/.korge/XcodeGen-2.42.0 and /usr/local/bin)")
-        exec {
-            workingDir = dir
-            commandLine(xcodegen.absolutePath)
-        }
+        val proc = ProcessBuilder(xcodegen.absolutePath)
+            .directory(dir)
+            .redirectErrorStream(true)
+            .start()
+        val output = proc.inputStream.readBytes().decodeToString()
+        if (proc.waitFor() != 0) error("xcodegen failed:\n$output")
     }
 }
 tasks.matching { it.name.startsWith("iosBuild") }.configureEach {
