@@ -50,6 +50,46 @@ tasks.withType<JavaExec> {
     jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
 
+// Workaround for a gap in the korge plugin's iOS project generation: the
+// generated app targets do not link UIKit, and current Xcode linkers fail with
+// "Undefined symbols: _OBJC_CLASS_$_UIApplication, _UIApplicationMain, ...".
+// Patch the generated project.yml (add `- sdk: UIKit.framework` next to each
+// framework dependency) and re-run xcodegen, between the plugin's
+// prepareKotlinNativeIosProject and the iosBuild* tasks.
+val patchGeneratedIosProject = tasks.register("patchGeneratedIosProject") {
+    group = "korge"
+    description = "Adds the missing UIKit linkage to the generated iOS xcodegen project"
+    val platformsDir = layout.buildDirectory.dir("platforms/ios")
+    inputs.files(fileTree(platformsDir) { include("project.yml") }).withPropertyName("projectYml")
+    outputs.files(platformsDir.map { it.file("app.xcodeproj/project.pbxproj") }).withPropertyName("pbxproj")
+    // The plugin rewrites project.yml (without UIKit) on every prepare run
+    outputs.upToDateWhen { false }
+    doLast {
+        val dir = platformsDir.get().asFile
+        val yml = File(dir, "project.yml")
+        if (!yml.exists()) return@doLast
+        val text = yml.readText()
+        if (!text.contains("UIKit")) {
+            val patched = Regex("(?m)^(\\s*)- framework: (\\.\\./)").replace(text) { m ->
+                "${m.groupValues[1]}- sdk: UIKit.framework\n${m.groupValues[1]}- framework: ${m.groupValues[2]}"
+            }
+            yml.writeText(patched)
+        }
+        val xcodegen = listOf(
+            File(System.getProperty("user.home"), ".korge/XcodeGen-2.42.0/.build/release/xcodegen"),
+            File("/usr/local/bin/xcodegen"),
+        ).firstOrNull { it.exists() } ?: error("Can't find xcodegen (looked in ~/.korge/XcodeGen-2.42.0 and /usr/local/bin)")
+        exec {
+            workingDir = dir
+            commandLine(xcodegen.absolutePath)
+        }
+    }
+}
+tasks.matching { it.name.startsWith("iosBuild") }.configureEach {
+    dependsOn(patchGeneratedIosProject)
+}
+patchGeneratedIosProject { dependsOn("prepareKotlinNativeIosProject") }
+
 tasks.register<Jar>("jvmFatJar") {
     group = "build"
     description = "Packages a standalone fat JAR for the JVM application"
